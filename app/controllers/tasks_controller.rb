@@ -1,14 +1,17 @@
 class TasksController < ApplicationController
   def index
     @tasks = Task.all
-  end
+end
   def new
     @task = Task.new
   end
   def create
     @task = Task.new(task_params)
-    @task.save
+    if @task.save
     redirect_to root_path
+    else
+        render 'new', status: :unprocessable_entity
+    end
   end
   
 
